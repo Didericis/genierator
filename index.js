@@ -3,8 +3,6 @@ const Mustache = require('mustache');
 const path = require('path');
 const pify = require('pify');
 
-const TEMPLATES_DIR = process.env.GENIERATOR_PATH || path.join(process.env.HOME, '.genierators');
-
 const renderFile = function renderFile(from, vars, to = process.cwd()) {
   return pify(fs.readFile)(from, 'utf8')
     .then(data => pify(fs.writeFile)(to, Mustache.render(data, vars)))
@@ -17,7 +15,7 @@ const renderDirectory = function renderDirectory(from, vars, to = process.cwd())
       const fileName = Mustache.render(file, vars);
       const fileTo = path.join(to, fileName);
 
-      pify(fs.stat)(fileFrom).then(stat => {
+      return pify(fs.stat)(fileFrom).then(stat => {
         if (stat.isFile()) return renderFile(fileFrom, vars, fileTo);
         if (stat.isDirectory()) {
           return pify(fs.mkdir)(fileTo).then(() => renderDirectory(fileFrom, vars, fileTo));
@@ -27,17 +25,24 @@ const renderDirectory = function renderDirectory(from, vars, to = process.cwd())
 };
 
 const renderTemplate =  function renderTemplate(name, vars) {
+  const TEMPLATES_DIR = process.env.GENIERATOR_PATH || path.join(process.env.HOME, '.genierators');
   if (!name) throw renderTemplate.Error('Must specify a tempate name');
 
   const dir = path.join(TEMPLATES_DIR, name);
   const templatePath  = path.join(dir, 'template');
   const varsPath = path.join(dir, 'vars.js');
 
-  if (!fs.existsSync(dir)) throw new renderTemplate.Error(`Template "${name}" not found!`);
-  if (!fs.existsSync(templatePath)) throw new renderTemplate.Error(`Template "${name}" has no template folder`);
-  if (!fs.existsSync(varsPath)) throw new renderTempalte.Error(`Template "${name}" has no vars`);
+  if (!fs.existsSync(dir)) {
+    throw new renderTemplate.Error(`Genierator "${name}" not found in ${TEMPLATES_DIR}`);
+  } if (!fs.existsSync(templatePath)) {
+    throw new renderTemplate.Error(`Could not find "template/" for genierator "${name}"`);
+  } if (!fs.existsSync(varsPath)) {
+    throw new renderTemplate.Error(`Could not find "vars.js" for genierator "${name}"`);
+  } if (!vars.file_name) {
+    throw new renderTemplate.Error('Must specify a filename!');
+  }
 
-  renderDirectory(templatePath, require(varsPath)(vars));
+  return renderDirectory(templatePath, require(varsPath)(vars));
 };
 renderTemplate.Error = function TemplateRenderError(message) { this.message = message; };
 

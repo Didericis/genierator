@@ -6,6 +6,9 @@
   "bin": {
     "genierate": "bin/genierate.js"
   },
+  "scripts": {
+    "test": "mocha -u bdd-lazy-var/rspec"
+  },
   "keywords": [
     "generator",
     "generate",
@@ -36,5 +39,13 @@
     "minimist": "^1.2.0",
     "mustache": "^2.3.0",
     "pify": "^3.0.0"
+  },
+  "devDependencies": {
+    "bdd-lazy-var": "^1.2.1",
+    "chai": "^4.1.0",
+    "dir-compare": "^1.4.0",
+    "mocha": "^3.4.2",
+    "rimraf": "^2.6.1",
+    "sinon": "^2.4.1"
   }
 }
