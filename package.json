@@ -6,7 +6,30 @@
   "bin": {
     "genierate": "bin/genierate.js"
   },
-  "author": "Didericis",
+  "keywords": [
+    "generator",
+    "generate",
+    "mustache",
+    "boilerplate",
+    "template",
+    "scaffold",
+    "build",
+    "cli",
+    "cli-app",
+    "development",
+    "dev"
+  ],
+  "bugs": {
+    "url": "https://github.com/Didericis/genierator/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Didericis/genierator.git"
+  },
+  "author": {
+    "name": "Didericis",
+    "url": "http://blog.dideric.is"
+  },
   "license": "ISC",
   "dependencies": {
     "lodash": "^4.17.4",
