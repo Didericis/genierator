@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/repo
+    docker:
+      - image: circleci/node:6.11
+    steps:
+      - checkout
+      - run:
+          name: Install CC Test Reporter
+          command: |
+            curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+            chmod +x ./cc-test-reporter
+      - run:
+          name: Install NPM dependencies
+          command: npm install
+      - run:
+          name: Run CC Test Reporter
+          command: ./cc-test-reporter before-build
+      - run:
+          name: Run Tests
+          command: |
+            npm run test:coverage
+            ./cc-test-reporter after-build --exit-code $?
+      - store_artifacts:
+          path: ./coverage
