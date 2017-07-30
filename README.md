@@ -1,3 +1,8 @@
+[![npm version](https://badge.fury.io/js/genierator.svg)](https://badge.fury.io/js/genierator)
+[![Code Climate](https://codeclimate.com/github/Didericis/genierator/badges/gpa.svg)](https://codeclimate.com/github/Didericis/genierator)
+[![Test Coverage](https://codeclimate.com/github/Didericis/genierator/badges/coverage.svg)](https://codeclimate.com/github/Didericis/genierator/coverage)
+[![CircleCI](https://circleci.com/gh/Didericis/genierator.svg?style=svg)](https://circleci.com/gh/Didericis/genierator)
+
 # Overview
 
 Uses the [mustache](https://mustache.github.io/) templating engine to generate boilerplate. Click [here](http://blog.dideric.is/2017/07/22/Creating-boilerplate-in-vim/) for an article explaining why it was made.
