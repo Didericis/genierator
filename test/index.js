@@ -35,14 +35,15 @@ describe('genierate', function() {
   };
 
   beforeEach(function() {
-    process.env['GENIERATOR_PATH'] = GENIERATORS;
+    fs.mkdirSync(ACTUAL);
     process.chdir(ACTUAL);
+    process.env['GENIERATOR_PATH'] = GENIERATORS;
     sinon.stub(console, 'error');;
   });
 
   afterEach(function(done) {
     console.error.restore();
-    rimraf(path.join(ACTUAL, '*'), done);
+    rimraf(ACTUAL, done);
   });
 
   context('when the genierator exists', function() {
