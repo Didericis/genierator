@@ -14,7 +14,7 @@ const GENIERATORS = path.join(__dirname, 'genierators');
 describe('genierate', function() {
   def('genierator', () => '');
   def('name', () => '');
-  subject('genierate', () => exec($genierator, $name));
+  subject('genierate', () => exec($genierator, $name, $vars));
 
   const itDoesNotGenerateAnyFiles = () => {
     it('does not generate any files', function() {
@@ -52,15 +52,19 @@ describe('genierate', function() {
     context('and a filename is provided', function() {
       def('name', () => 'my_cool_component');
 
-      it('generates the expected files', function() {
-        return $genierate.then(() => (
-          dirCompare.compare(
-            ACTUAL,
-            EXPECTED,
-            { compareContent: true }
-          )
-        )).then((res) => {
-          expect(res.same).to.be.true;
+      context('and a custom variable is provided', function() {
+        def('vars', () => '--custom=thingy');
+
+        it('generates the expected files', function() {
+          return $genierate.then(() => (
+            dirCompare.compare(
+              ACTUAL,
+              EXPECTED,
+              { compareContent: true }
+            )
+          )).then((res) => {
+            expect(res.same).to.be.true;
+          });
         });
       });
     });

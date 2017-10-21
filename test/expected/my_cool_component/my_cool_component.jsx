@@ -19,6 +19,7 @@ export default class MyCoolComponent extends Component {
     return (
       <div className={this.className()}>
         <h1>MyCoolComponent</h1>
+        <span>thingy</span>
       </div>
     );
   }

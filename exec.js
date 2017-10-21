@@ -5,7 +5,7 @@ const _ = require('lodash');
 module.exports = function exec() {
   try {
     return renderTemplate(arguments[0], Object.assign(
-      minimist(Array.apply(arguments).slice(2)), 
+      minimist(Array.prototype.slice.call(arguments, 2)),
       { file_name: _.snakeCase(arguments[1]) }
     ));
   } catch (e) {

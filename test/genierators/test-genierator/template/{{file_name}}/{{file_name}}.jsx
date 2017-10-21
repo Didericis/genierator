@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import styles from './{{file_name}}.css';
 
-export default class {{{name}}} extends Component {
+export default class {{name}} extends Component {
   static propTypes = {
     className: PropTypes.string,
   }
@@ -18,7 +18,8 @@ export default class {{{name}}} extends Component {
   render() {
     return (
       <div className={this.className()}>
-        <h1>{{{name}}}</h1>
+        <h1>{{name}}</h1>
+        <span>{{custom}}</span>
       </div>
     );
   }
